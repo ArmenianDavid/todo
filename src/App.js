@@ -3,6 +3,7 @@ import Header from './Components/Header/Header'
 import Input from './Components/Input/Input'
 import Render from './Components/Render/Render'
 import Buttons from './Components/Buttons/Buttons'
+import TodoCounts from './Components/TodoCounts/TodoCounts'
 
 import "./App.css";
 
@@ -65,7 +66,7 @@ class App extends React.Component {
 
 
     render() {
-        const { todos } = this.state
+        const { todos , status  } = this.state
         return (
             <div>
                 <Header />
@@ -77,6 +78,7 @@ class App extends React.Component {
                                 todos={this.state.filteredTodos} 
                                 removeTodo={this.removeTodo} 
                                 handleChangeTodoStatus={this.handleChangeTodoStatus} />
+                            {todos.length ? <TodoCounts status={status} todos={todos} /> : null}
                             {todos.length ? <Buttons filterTodos = {this.filterTodos} status={this.state.status} /> : null}    
                         </div>
                        

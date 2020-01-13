@@ -20,7 +20,7 @@ const Render = (props) =>{
                         onClick={() => handleChangeTodoStatus(todo.id)}/>
 
                     <span className={todo.isComplited ? "complited" : "active"}>
-                      {todo.name}
+                       {todo.name}
                     </span>
                 </div>
                 <div className="x-icon">
