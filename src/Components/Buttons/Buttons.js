@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Buttons = (props) =>{
-  const { filterTodos , status } = props
+  const { filterTodos , status , clearTodos} = props
   return (
     <div className='buttons-container'>
         <div>
@@ -23,6 +23,12 @@ const Buttons = (props) =>{
              >
                 Comlited
                 </button>
+            <button
+              onClick={() => clearTodos()}
+              >
+                Clear
+                </button>
+
         </div>
     </div> 
   )

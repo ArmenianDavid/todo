@@ -25,7 +25,9 @@ class App extends React.Component {
         }else if( status === 'complited'){
             const complitedTodos = this.state.todos.filter( todo => todo.isComplited === true) 
             this.setState({ filteredTodos : complitedTodos , status : status})
-        } else {
+        }else if(status === 'clearAll'){
+            this.setState({ todos : null , status : status})
+        } else{
            this.setState({ filteredTodos : this.state.todos , status : status})
         }
     }
@@ -53,7 +55,7 @@ class App extends React.Component {
     
        this.setState({
            todos
-         })
+         },()=>this.filterTodos(this.state.status))
        }
     
     removeTodo = (id) =>{
@@ -62,7 +64,12 @@ class App extends React.Component {
        },() => this.filterTodos(this.state.status))
     }
 
-    
+    clearTodos = () =>{
+        this.setState({
+            todos : [],
+            filterTodos : []
+        },()=>this.filterTodos(this.state.status))
+    }
 
 
     render() {
@@ -78,8 +85,14 @@ class App extends React.Component {
                                 todos={this.state.filteredTodos} 
                                 removeTodo={this.removeTodo} 
                                 handleChangeTodoStatus={this.handleChangeTodoStatus} />
-                            {todos.length ? <TodoCounts status={status} todos={todos} /> : null}
-                            {todos.length ? <Buttons filterTodos = {this.filterTodos} status={this.state.status} /> : null}    
+                            {todos.length ? <TodoCounts 
+                                               status={status} 
+                                               todos={todos} /> : null}
+                            {todos.length ? <Buttons 
+                                               filterTodos = {this.filterTodos} 
+                                               status={this.state.status}
+                                               clearTodos={this.clearTodos}
+                                                /> : null}    
                         </div>
                        
                     </div>

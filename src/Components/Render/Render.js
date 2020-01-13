@@ -1,7 +1,8 @@
 import React from 'react'
 
-const Render = (props) =>{
-   const {todos , removeTodo , handleChangeTodoStatus} = props
+class Render extends React.Component{
+   render(){
+        const {todos , removeTodo , handleChangeTodoStatus} = this.props
 
    return(
     <div>
@@ -36,6 +37,8 @@ const Render = (props) =>{
     })}
 </div>
    )
-}
+} 
+   }
+ 
 
 export default Render
