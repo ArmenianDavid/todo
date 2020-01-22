@@ -18,6 +18,32 @@ class App extends React.Component {
         };
     }
 
+    handleRenameTodo = (e , id) =>{
+        if (e.key === "Enter") {
+            if(!e.target.value){ return '' } 
+        const newArray = this.state.todos.map( todo => {
+            if(todo.id === id){ 
+                todo.name = e.target.value 
+                todo.isRenaming = !todo.isRenaming
+            }
+            return todo
+        })
+        this.setState({
+          todos : newArray 
+        })
+      } 
+    }
+
+    renameTodo = (id) =>{
+       const newArray = this.state.todos.map( todo => {
+           if(todo.id === id){ todo.isRenaming = !todo.isRenaming}
+           return todo
+       })
+       this.setState({
+         todos : newArray 
+       })
+    }
+
     filterTodos = (status) =>{
         if( status === 'active'){
            const activeTodos = this.state.todos.filter( todo => todo.isComplited === false) 
@@ -34,18 +60,21 @@ class App extends React.Component {
 
     handleKeyDown = e => {
         if (e.key === "Enter") {
-            if(!e.target.value){ return '' } 
+            if(!e.target.value){ return null } 
             this.setState({
                 todos: [
                     ...this.state.todos,
                     {
                         id: this.state.todoId + 1,
                         name: e.target.value,
-                        isComplited: false
+                        isComplited: false,
+                        isRenaming : false,
                     }
                 ],
                 todoId: this.state.todoId + 1
-            },() => this.filterTodos(this.state.status));
+            },
+            () => this.filterTodos(this.state.status)
+            );
         } 
     };
 
@@ -84,7 +113,10 @@ class App extends React.Component {
                             <Render 
                                 todos={this.state.filteredTodos} 
                                 removeTodo={this.removeTodo} 
-                                handleChangeTodoStatus={this.handleChangeTodoStatus} />
+                                handleChangeTodoStatus={this.handleChangeTodoStatus}
+                                renameTodo={this.renameTodo}
+                                handleRenameTodo={this.handleRenameTodo}
+                                />
                             {todos.length ? <TodoCounts 
                                                status={status} 
                                                todos={todos} /> : null}

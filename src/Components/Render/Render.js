@@ -1,8 +1,10 @@
 import React from 'react'
 
 class Render extends React.Component{
+
+
    render(){
-        const {todos , removeTodo , handleChangeTodoStatus} = this.props
+        const {todos , removeTodo , handleChangeTodoStatus , renameTodo , handleRenameTodo} = this.props
 
    return(
     <div>
@@ -12,17 +14,28 @@ class Render extends React.Component{
               key={todo.id}
               className={`todo`}>
                 
-                <div>
+                <div className='todo-left-part'>
                     <input
                         id={todo.id}
                         type="checkbox"
                         className="mark"
-                        checked={todo.isComplited ? true : false}
+                        defaultChecked={todo.isComplited ? true : false}
                         onClick={() => handleChangeTodoStatus(todo.id)}/>
 
-                    <span className={todo.isComplited ? "complited" : "active"}>
-                       {todo.name}
-                    </span>
+                    <div className='todo-text-container' onDoubleClick={() =>renameTodo(todo.id)}>
+                       <span 
+                         style={todo.isRenaming ? {display : 'none'} : {display : 'block'} }
+                         className={todo.isComplited ? "complited" : "active"}>
+                           {todo.name}
+                       </span>
+                       {console.log(todo.isRenaming)}
+                       <input 
+                         defaultValue={todo.name}
+                         onKeyDown={(e) =>handleRenameTodo(e , todo.id)}
+                         className='todo-text-container-input'
+                         style={todo.isRenaming ? {display : 'block'} : {display : 'none'}  }
+                         type='text' />
+                     </div>
                 </div>
                 <div className="x-icon">
                     <span
