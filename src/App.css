@@ -38,7 +38,7 @@
 /* Todo */
 .todo{
   width: auto;
-  height: 3em;
+  height: auto;
   background-color: #f2f2f2;
   margin: 0.2em;
   border-radius: 1em;
@@ -48,16 +48,22 @@
   align-items: center;
 }
 .mark{
-  height: 2.5em;
-  width: 2.5em;
+  height: 2.5rem;
+  width: 2.5rem;
 }
 .todo-left-part{
   display: flex;
   justify-content: center;
 }
+.todo-text-container span{
+  width: 100%;
+}
 .todo-text-container-input{
+  outline: none;
   border: none;
   font-size: 2.5em;
+  width: 100%;
+  border-radius: 0.3em;
 }
 .todo span{
   font-size: 2.5rem;
@@ -103,4 +109,28 @@
 }
 .select{
   background-color: grey;
+}
+
+@media  only screen and (max-width : 600px){
+  .input{
+    width: 99%;
+    height: 100%;
+    outline: none;
+    background-color: blanchedalmond;
+    font-size: 1.3em;
+  }
+  .mark{
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  .todo-text-container-input{
+    outline: none;
+    border: none;
+    font-size: 1.5em;
+    width: 100%;
+    border-radius: 0.2em;
+  }
+  .todo span{
+    font-size: 1.5rem;
+  }
 }
