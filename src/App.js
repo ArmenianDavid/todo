@@ -11,7 +11,7 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            todos: ,
+            todos: [],
             todoId: 0,
             status : 'all',
         };
