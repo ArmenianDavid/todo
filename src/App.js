@@ -11,10 +11,17 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            todos: [],
-            todoId: 0,
-            status : 'all',
+            todos: JSON.parse(localStorage.getItem("todos")) ? JSON.parse(localStorage.getItem("todos")) : [],
+            todoId:  localStorage.getItem('todoId') ? +localStorage.getItem('todoId') : 0,
+            status : localStorage.getItem('status') ? localStorage.getItem('status') : 'all',
         };
+    }
+
+    componentDidUpdate(){
+        localStorage.setItem("todos", JSON.stringify(this.state.todos))
+        localStorage.setItem("todoId", this.state.todoId)
+        localStorage.setItem("status", this.state.status)
+        console.log(localStorage)
     }
 
 
@@ -105,8 +112,10 @@ class App extends React.Component {
     clearTodos = () =>{
         this.setState({
             todos : [],
-            filterTodos : []
+            filterTodos : [],
+            todoId : 0,
         },
+        localStorage.clear()
         )
     }
 
