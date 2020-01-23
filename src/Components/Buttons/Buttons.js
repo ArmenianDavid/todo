@@ -1,25 +1,25 @@
 import React from 'react'
 
 const Buttons = (props) =>{
-  const { filterTodos , status , clearTodos} = props
+  const { handleChangeStateStatus , status , clearTodos} = props
   return (
     <div className='buttons-container'>
         <div>
             <button
               className={status === 'all' ? 'select' : ''}
-              onClick={() =>filterTodos('all')}
+              onClick={() =>handleChangeStateStatus('all')}
              >
                 All
                 </button>
             <button
               className={status === 'active' ? 'select' : ''}
-              onClick={() =>filterTodos('active')}
+              onClick={() =>handleChangeStateStatus('active')}
               >
                 Active
                 </button>
             <button
               className={status === 'complited' ? 'select' : ''}
-              onClick={() =>filterTodos('complited')}
+              onClick={() =>handleChangeStateStatus('complited')}
              >
                 Comlited
                 </button>

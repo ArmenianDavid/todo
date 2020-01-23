@@ -5,8 +5,8 @@ class Render extends React.Component{
 
    render(){
         const {todos , removeTodo , handleChangeTodoStatus , renameTodo , handleRenameTodo} = this.props
-
    return(
+     
     <div>
     {todos.map(todo => {
         return (
@@ -28,7 +28,6 @@ class Render extends React.Component{
                          className={todo.isComplited ? "complited" : "active"}>
                            {todo.name}
                        </span>
-                       {console.log(todo.isRenaming)}
                        <input 
                          defaultValue={todo.name}
                          onKeyDown={(e) =>handleRenameTodo(e , todo.id)}

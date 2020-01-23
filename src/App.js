@@ -11,12 +11,12 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            todos: [],
+            todos: ,
             todoId: 0,
-            filteredTodos : [],
             status : 'all',
         };
     }
+
 
     handleRenameTodo = (e , id) =>{
         if (e.key === "Enter") {
@@ -44,18 +44,19 @@ class App extends React.Component {
        })
     }
 
-    filterTodos = (status) =>{
-        if( status === 'active'){
-           const activeTodos = this.state.todos.filter( todo => todo.isComplited === false) 
-           this.setState({ filteredTodos : activeTodos , status : status})
-        }else if( status === 'complited'){
-            const complitedTodos = this.state.todos.filter( todo => todo.isComplited === true) 
-            this.setState({ filteredTodos : complitedTodos , status : status})
-        }else if(status === 'clearAll'){
-            this.setState({ todos : null , status : status})
-        } else{
-           this.setState({ filteredTodos : this.state.todos , status : status})
+    filterTodos = () =>{
+        let filteredTodos;
+        if( this.state.status === 'active'){
+            filteredTodos = this.state.todos.filter( todo => todo.isComplited === false) 
+        }else if( this.state.status === 'complited'){
+             filteredTodos = this.state.todos.filter( todo => todo.isComplited === true) 
+        }else if(this.state.status === 'clearAll'){
+             filteredTodos = [];
         }
+        else{
+             filteredTodos = this.state.todos;
+        } 
+        return filteredTodos
     }
 
     handleKeyDown = e => {
@@ -72,11 +73,17 @@ class App extends React.Component {
                     }
                 ],
                 todoId: this.state.todoId + 1
-            },
-            () => this.filterTodos(this.state.status)
+              },
             );
         } 
     };
+
+    handleChangeStateStatus = (status) =>{
+        console.log(status)
+       this.setState({
+           status : status
+       })
+    }
 
     handleChangeTodoStatus = id => {
        const todos = this.state.todos;
@@ -84,25 +91,29 @@ class App extends React.Component {
     
        this.setState({
            todos
-         },()=>this.filterTodos(this.state.status))
+         },
+         )
        }
     
     removeTodo = (id) =>{
        this.setState({
            todos : this.state.todos.filter( todo => todo.id !== id)
-       },() => this.filterTodos(this.state.status))
+       },
+       )
     }
 
     clearTodos = () =>{
         this.setState({
             todos : [],
             filterTodos : []
-        },()=>this.filterTodos(this.state.status))
+        },
+        )
     }
 
 
     render() {
         const { todos , status  } = this.state
+        let normalizedTodos = this.filterTodos();
         return (
             <div>
                 <Header />
@@ -111,7 +122,7 @@ class App extends React.Component {
                         <div className="todos">
                             <Input handleKeyDown={this.handleKeyDown}/>
                             <Render 
-                                todos={this.state.filteredTodos} 
+                                todos={normalizedTodos} 
                                 removeTodo={this.removeTodo} 
                                 handleChangeTodoStatus={this.handleChangeTodoStatus}
                                 renameTodo={this.renameTodo}
@@ -121,7 +132,7 @@ class App extends React.Component {
                                                status={status} 
                                                todos={todos} /> : null}
                             {todos.length ? <Buttons 
-                                               filterTodos = {this.filterTodos} 
+                                               handleChangeStateStatus = {this.handleChangeStateStatus}
                                                status={this.state.status}
                                                clearTodos={this.clearTodos}
                                                 /> : null}    
